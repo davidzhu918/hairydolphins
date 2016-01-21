@@ -7,16 +7,33 @@ var CHANGE_EVENT = 'change';
 
 var _timeRequests = [];
 
+var time = {
+  'date': '2016-01-01',
+  'start_time': '08:00 AM',
+  'end_time': '05:00 PM',
+  'all_day': false
+}
+
+_timeRequests.push(time); 
+
 function _removeTime(index) {
   _timeRequests.splice(index, 1);
 }
 
 function _addTime() {
   var time = {
-    'date': '',
-    'start_time': '',
-    'end_time': ''
+    'date': '2016-01-01',
+    'start_time': '08:00',
+    'end_time': '05:00',
+    'all_day': false
   }
+  if (_timeRequests.length > 0) {
+    var last_time = _timeRequests[_timeRequests.length - 1];
+    time.date = last_time.date;
+    time.start_time = last_time.start_time;
+    time.end_time = last_time.end_time;
+  }
+  
   _timeRequests.push(time);
 }
 

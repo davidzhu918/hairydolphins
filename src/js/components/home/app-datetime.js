@@ -1,5 +1,6 @@
 var React = require('react');
 var Link = require('react-router').Link;
+var DateTimeField = require('react-bootstrap-datetimepicker');
 
 var AppStore = require('../../stores/app-store.js');
 var StoreWatchMixin = require('../../mixins/StoreWatchMixins')
@@ -11,32 +12,42 @@ function requests() {
 
 var Datetime = React.createClass({
   mixins: [StoreWatchMixin(requests)],
-  handleDateChange: function(event) {
+  handleCheckboxChange: function() {
     var myid = this.props.id;
     var newRequests = this.state.requests;
     newRequests.forEach(function(request, id) {
       if (id === myid) {
-        request.date = event.target.value;
+        request.all_day = !request.all_day;
       }
     })
     this.setState({'requests': newRequests});
   },
-  handleStartTimeChange: function(event) {
+  handleDateChange: function(newDate) {
     var myid = this.props.id;
     var newRequests = this.state.requests;
     newRequests.forEach(function(request, id) {
       if (id === myid) {
-        request.start_time = event.target.value;
+        request.date = newDate;
       }
     })
     this.setState({'requests': newRequests});
   },
-  handleEndTimeChange: function(event) {
+  handleStartTimeChange: function(newDate) {
     var myid = this.props.id;
     var newRequests = this.state.requests;
     newRequests.forEach(function(request, id) {
       if (id === myid) {
-        request.end_time = event.target.value;
+        request.start_time = newDate;
+      }
+    })
+    this.setState({'requests': newRequests});
+  },
+  handleEndTimeChange: function(newDate) {
+    var myid = this.props.id;
+    var newRequests = this.state.requests;
+    newRequests.forEach(function(request, id) {
+      if (id === myid) {
+        request.end_time = newDate;
       }
     })
     this.setState({'requests': newRequests});
@@ -46,32 +57,53 @@ var Datetime = React.createClass({
   },
   render: function() {
     var myid = this.props.id;
-    var date, start_time, end_time;
+    var date, start_time, end_time, checked;
     this.state.requests.forEach(function(request, id) {
       if (id === myid) {
         date = request.date;
         start_time = request.start_time;
         end_time = request.end_time;
+        checked = request.all_day;
       }
     })
     return (
-      <div>
-        <br />
-        <div className="row">
-          <div className="col-md-3">
-            <input type="text" className='form-control' value={date} onChange={this.handleDateChange}/>
-          </div>
-          <div className="col-md-3">
-            <input type="text" className='form-control' value={start_time} onChange={this.handleStartTimeChange}/>
-          </div>
-          <div className="col-md-3">
-            <input type="text" className='form-control' value={end_time} onChange={this.handleEndTimeChange}/>
-          </div>
-          <div className="col-md-3">
-            <button type="button" className="btn btn-primary" onClick={this.handler}>x</button>
-          </div>
-        </div>
-      </div>
+      <tr>
+        <td>
+          <button type="button" className="btn btn-primary" onClick={this.handler}>x</button>
+        </td>
+        <td>
+          <DateTimeField
+              dateTime={date}
+              inputFormat={'MM/DD/YY'}
+              format={'YYYY-MM-DD'}
+              mode={'date'}
+              inputProps={{'disabled': checked}}
+              onChange={this.handleDateChange}
+          />
+        </td>
+        <td>
+          <DateTimeField 
+            dateTime={start_time}
+            inputFormat={'hh:mm A'}
+            format={'hh:mm A'}
+            mode={'time'}
+            inputProps={{'disabled': checked}}
+            onChange={this.handleStartTimeChange}
+          />
+        </td>
+        <td>
+          <DateTimeField
+            dateTime={end_time}
+            inputFormat={'hh:mm A'}
+            format={'hh:mm A'}
+            mode={'time'}
+            inputProps={{'disabled': checked}}
+            onChange={this.handleEndTimeChange}
+          />
+        </td>
+        <td><input type="checkbox" onChange={this.handleCheckboxChange}/></td>
+        <td><p>entire day</p></td>
+      </tr>
     );
   }
 });
