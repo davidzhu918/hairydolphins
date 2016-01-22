@@ -1,5 +1,7 @@
 var React = require('react');
 var Link = require('react-router').Link;
+var DropdownButton = require('react-bootstrap/lib/DropdownButton');
+var MenuItem = require('react-bootstrap/lib/MenuItem');
 
 var AppStore = require('../../stores/app-store.js');
 var StoreWatchMixin = require('../../mixins/StoreWatchMixins')
@@ -17,25 +19,11 @@ var Catalog = React.createClass({
                     </a>
                 </li>
                 <li>
-                    <a href="">Dashboard</a>
-                </li>
-                <li>
-                    <a href="">Shortcuts</a>
-                </li>
-                <li>
-                    <a href="">Overview</a>
-                </li>
-                <li>
-                    <a href="">Events</a>
-                </li>
-                <li>
-                    <a href="">About</a>
-                </li>
-                <li>
-                    <a href="">Services</a>
-                </li>
-                <li>
-                    <a href="">Contact</a>
+                  <DropdownButton title="choose time">
+                    <MenuItem eventKey="1">Action</MenuItem>
+                    <MenuItem eventKey="2">Another action</MenuItem>
+                    <MenuItem eventKey="3" active>Active Item</MenuItem>
+                  </DropdownButton>
                 </li>
             </ul>
         </div>
