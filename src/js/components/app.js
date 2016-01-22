@@ -7,6 +7,7 @@ var browserHistory = require('react-router').browserHistory;
 
 var Home = require('./home/app-home');
 var Template = require('./app-template');
+var Catalog = require('./catalog/app-catalog');
 
 var App = React.createClass({
 	render: function() {
@@ -14,6 +15,7 @@ var App = React.createClass({
 			<Router>
 				<Route path="/" component={Template}>
 					<IndexRoute component={Home} />
+					<Route path="/catalog" component={Catalog} />
 				</Route>
 			</Router>
 		)

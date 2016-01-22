@@ -22,12 +22,12 @@ var SearchBox = React.createClass({
       );
     })
     return (
-      <div>
+      <div className="searchbox">
         <div>
           <input type="text" className="form-control" placeholder="Where do you want to go?" />
           <span />
         </div>
-        <table className="table table-hover">
+        <table className="table">
           <thead>
             <tr>
               <th></th>
@@ -51,7 +51,7 @@ var SearchBox = React.createClass({
         </table>
         <br />
         <br />
-        <button type="button" className="btn btn-primary btn-md btn-block" >Search</button>
+        <Link to={'/catalog'} className="btn btn-primary btn-md btn-block">Search</Link>
       </div>
     );
   }

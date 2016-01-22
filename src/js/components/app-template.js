@@ -6,7 +6,7 @@ var Template = React.createClass({
 		return (
 			<div>
 				<Header />
-				<div className='container'>
+				<div className='container-fluid'>
 					{this.props.children}
 				</div>
 			</div>
